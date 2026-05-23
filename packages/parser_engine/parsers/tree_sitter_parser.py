@@ -33,15 +33,10 @@ class TreeSitterParser:
     
         """
         self.language = language
-        print("LANGUAGE:", language)
         try:
             self.parser = get_parser(language)
         except Exception as e:
             raise ValueError(f"Failed to load parser for {language}")
-        
-        print("LANGUAGE:", language)
-        print("PARSER:", self.parser)
-        print("TYPE:", type(self.parser))
         
     @classmethod
     def from_file_path(cls, file_path:str)->Optional['TreeSitterParser']:
@@ -73,8 +68,8 @@ class TreeSitterParser:
                 code_bytes = f.read()
             return self.parser.parse(code_bytes)
         except Exception as e:
-            print(f"Error parsing {file_path}:{e}")
-        print("ROOT TYPE:", self.parser.parse(code_bytes).root_node.type)
+            print(f"Error parsing {file_path}: {e}")
+            return None
 
     
     def parse_code(self, code:str)->Optional['object']:
@@ -181,7 +176,7 @@ class TreeSitterParser:
         if self.language == 'python':
             return self._extract_python_docstring(node)
         elif self.language in ['javascript', 'typescript']:
-            return self._Extract_jsdoc(node)
+            return self._extract_jsdoc(node)
 
     def _extract_python_docstring(self,node)->Optional['str']:
         body = node.child_by_field_name('body')

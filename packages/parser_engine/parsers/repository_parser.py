@@ -222,10 +222,10 @@ class RepositoryParser:
 
             return all_chunks
         except Exception as e:
-            print(f"Error parsing {file_path:} {e}")
+            print(f"Error parsing {file_path}: {e}")
             return []
     
-    def get_Repository_stats(self)->Dict:
+    def get_repository_stats(self)->Dict:
 
         code_files = self._find_code_files()
 

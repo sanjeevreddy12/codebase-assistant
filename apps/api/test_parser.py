@@ -1,9 +1,11 @@
 import sys
 from pathlib import Path
 
-# Adjust path to import your package
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.append(str(ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from bootstrap import setup_paths
+
+setup_paths()
 
 from packages.parser_engine.parsers.tree_sitter_parser import TreeSitterParser
 from packages.parser_engine.parsers.repository_parser import RepositoryParser
